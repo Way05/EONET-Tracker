@@ -1,5 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/src/app/components/ui/select";
 
 interface eventFormat {
   id: string;
@@ -46,6 +55,21 @@ export default function EventList() {
   }, []);
   return (
     <div>
+      <Select>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Filter Category" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Categories</SelectLabel>
+            <SelectItem value="drought">Drought</SelectItem>
+            <SelectItem value="dustHaze">Dust Haze</SelectItem>
+            <SelectItem value="earthquakes">Earthquakes</SelectItem>
+            <SelectItem value="floods">Floods</SelectItem>
+            <SelectItem value="landslides">Landslides</SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
       {currData
         ? currData.events.map((event: eventFormat) => (
             <div key={event.id}>{event.title}</div>
