@@ -1,7 +1,7 @@
 import Image from "next/image";
-import EventList from "./eventList";
-import Map from "./map";
-import Graph from "./graph";
+import EventList from "./components/eventList";
+import Map from "./components/map";
+import Graph from "./components/graph";
 
 export default function Home() {
   return (
