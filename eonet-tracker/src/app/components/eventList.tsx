@@ -83,7 +83,7 @@ export default function EventList() {
       console.log(json);
     }
 
-    getData();
+    // getData();
   });
   return (
     <div>
