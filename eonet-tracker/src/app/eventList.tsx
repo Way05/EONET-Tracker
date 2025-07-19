@@ -80,6 +80,16 @@ export default function EventList() {
                 <SelectItem value="earthquakes">Earthquakes</SelectItem>
                 <SelectItem value="floods">Floods</SelectItem>
                 <SelectItem value="landslides">Landslides</SelectItem>
+                <SelectItem value="manmade">Manmade</SelectItem>
+                <SelectItem value="seaLakeIce">Sea and Lake Ice</SelectItem>
+                <SelectItem value="severeStorms">Severe Storms</SelectItem>
+                <SelectItem value="snow">Snow</SelectItem>
+                <SelectItem value="tempExtremes">
+                  Extreme Temperatures
+                </SelectItem>
+                <SelectItem value="volcanoes">Volcanoes</SelectItem>
+                <SelectItem value="waterColor">Water Color</SelectItem>
+                <SelectItem value="wildfires">Wildfires</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
