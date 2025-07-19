@@ -19,6 +19,11 @@ import {
   CardTitle,
 } from "@/src/app/components/ui/card";
 
+interface categoriesFormat {
+  id: string;
+  title: string;
+}
+
 interface eventFormat {
   id: string;
   title: string;
@@ -26,7 +31,7 @@ interface eventFormat {
   link: string;
   closed: boolean;
   //LAZY I WILL ADD THEM IF I NEED THEM
-  categories: any;
+  categories: categoriesFormat[];
   sources: any;
   geometry: any;
 }
@@ -40,11 +45,17 @@ interface allEventsFormat {
 
 export default function EventList() {
   const eventLimit: number = 20;
-  const categoryFilter: string = "";
   const [currData, setData] = useState<allEventsFormat>();
   const params: URLSearchParams = new URLSearchParams();
   params.append("status", "open");
   params.append("limit", eventLimit.toString());
+
+  let eventsShowing: number = 0;
+  const [filterChoice, setFilterChoice] = useState<string>("all");
+  function changeFilter(choice: string) {
+    eventsShowing = 0;
+    setFilterChoice(choice);
+  }
 
   useEffect(() => {
     async function getData(): Promise<void> {
@@ -68,13 +79,14 @@ export default function EventList() {
         <CardHeader>
           <CardTitle>Event List</CardTitle>
           <CardDescription>Search or Filter</CardDescription>
-          <Select>
+          <Select onValueChange={changeFilter}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter Category" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Categories</SelectLabel>
+                <SelectItem value="all">All</SelectItem>
                 <SelectItem value="drought">Drought</SelectItem>
                 <SelectItem value="dustHaze">Dust Haze</SelectItem>
                 <SelectItem value="earthquakes">Earthquakes</SelectItem>
@@ -95,12 +107,22 @@ export default function EventList() {
           </Select>
         </CardHeader>
         {/* <CardAction>Card Action</CardAction> */}
-        <CardContent>
+        <CardContent className="min-w-[228px]">
           {currData
-            ? currData.events.map((event: eventFormat) => (
-                <div key={event.id}>{event.title}</div>
-              ))
-            : "Loading..."}
+            ? currData.events.map((event: eventFormat) => {
+                if (
+                  filterChoice != "" &&
+                  filterChoice === event.categories[0].id
+                ) {
+                  eventsShowing++;
+                  return <div key={event.id}>{event.title}</div>;
+                } else if (filterChoice === "all") {
+                  eventsShowing++;
+                  return <div key={event.id}>{event.title}</div>;
+                }
+              })
+            : null}
+          {eventsShowing === 0 ? <div>No events found.</div> : null}
         </CardContent>
         {/* <CardFooter><p>Card Footer</p></CardFooter> */}
       </Card>
