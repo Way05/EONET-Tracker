@@ -24,6 +24,19 @@ interface categoriesFormat {
   title: string;
 }
 
+interface sourcesFormat {
+  id: string;
+  url: string;
+}
+
+interface geometryFormat {
+  magnitudeValue: number;
+  magnitudeUnit: string;
+  date: string;
+  type: string;
+  coordinates: [number, number];
+}
+
 interface eventFormat {
   id: string;
   title: string;
@@ -32,8 +45,8 @@ interface eventFormat {
   closed: boolean;
   //LAZY I WILL ADD THEM IF I NEED THEM
   categories: categoriesFormat[];
-  sources: any;
-  geometry: any;
+  sources: sourcesFormat[];
+  geometry: geometryFormat[];
 }
 
 interface allEventsFormat {
