@@ -9,6 +9,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/src/app/components/ui/select";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/src/app/components/ui/card";
 
 interface eventFormat {
   id: string;
@@ -55,26 +64,36 @@ export default function EventList() {
   }, []);
   return (
     <div>
-      <Select>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Filter Category" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Categories</SelectLabel>
-            <SelectItem value="drought">Drought</SelectItem>
-            <SelectItem value="dustHaze">Dust Haze</SelectItem>
-            <SelectItem value="earthquakes">Earthquakes</SelectItem>
-            <SelectItem value="floods">Floods</SelectItem>
-            <SelectItem value="landslides">Landslides</SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-      {currData
-        ? currData.events.map((event: eventFormat) => (
-            <div key={event.id}>{event.title}</div>
-          ))
-        : "Loading..."}
+      <Card>
+        <CardHeader>
+          <CardTitle>Event List</CardTitle>
+          <CardDescription>Search or Filter</CardDescription>
+          <Select>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Filter Category" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Categories</SelectLabel>
+                <SelectItem value="drought">Drought</SelectItem>
+                <SelectItem value="dustHaze">Dust Haze</SelectItem>
+                <SelectItem value="earthquakes">Earthquakes</SelectItem>
+                <SelectItem value="floods">Floods</SelectItem>
+                <SelectItem value="landslides">Landslides</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </CardHeader>
+        {/* <CardAction>Card Action</CardAction> */}
+        <CardContent>
+          {currData
+            ? currData.events.map((event: eventFormat) => (
+                <div key={event.id}>{event.title}</div>
+              ))
+            : "Loading..."}
+        </CardContent>
+        {/* <CardFooter><p>Card Footer</p></CardFooter> */}
+      </Card>
     </div>
   );
 }
