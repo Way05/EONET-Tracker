@@ -1,6 +1,7 @@
 import Image from "next/image";
 import EventList from "./eventList";
-import Map from "../map";
+import Map from "./map";
+import Graph from "./graph";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <main className="row-start-2 flex flex-wrap items-center gap-[32px] sm:items-start">
         <EventList></EventList>
         <Map></Map>
+        <Graph></Graph>
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-[24px]">
         <a
