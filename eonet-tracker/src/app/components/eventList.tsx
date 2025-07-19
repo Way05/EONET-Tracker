@@ -18,50 +18,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/src/app/components/ui/card";
+import { eventFormat } from "./dataInterfaces";
 
-interface categoriesFormat {
-  id: string;
-  title: string;
-}
+type data = {
+  events: eventFormat[] | undefined;
+};
 
-interface sourcesFormat {
-  id: string;
-  url: string;
-}
-
-interface geometryFormat {
-  magnitudeValue: number;
-  magnitudeUnit: string;
-  date: string;
-  type: string;
-  coordinates: [number, number];
-}
-
-interface eventFormat {
-  id: string;
-  title: string;
-  description: string;
-  link: string;
-  closed: boolean;
-  categories: categoriesFormat[];
-  sources: sourcesFormat[];
-  geometry: geometryFormat[];
-}
-
-interface allEventsFormat {
-  title: string;
-  description: string;
-  link: string;
-  events: eventFormat[];
-}
-
-export default function EventList() {
-  const eventLimit: number = 20;
-  const [currData, setData] = useState<allEventsFormat>();
-  const params: URLSearchParams = new URLSearchParams();
-  params.append("status", "open");
-  params.append("limit", eventLimit.toString());
-
+export default function EventList(props: data) {
   let eventsShowing: number = 0;
   const [filterChoice, setFilterChoice] = useState<string>("all");
   function changeFilter(choice: string) {
@@ -69,22 +32,6 @@ export default function EventList() {
     setFilterChoice(choice);
   }
 
-  useEffect(() => {
-    async function getData(): Promise<void> {
-      const res: Response = await fetch(
-        `https://eonet.gsfc.nasa.gov/api/v3/events?${params}`,
-        {
-          next: { revalidate: 3600 },
-        },
-      );
-      const json: allEventsFormat = await res.json();
-      setData(json);
-
-      console.log(json);
-    }
-
-    // getData();
-  });
   return (
     <div>
       <Card>
@@ -120,8 +67,8 @@ export default function EventList() {
         </CardHeader>
         {/* <CardAction>Card Action</CardAction> */}
         <CardContent className="min-w-[228px]">
-          {currData
-            ? currData.events.map((event: eventFormat) => {
+          {props.events
+            ? props.events.map((event: eventFormat) => {
                 if (
                   filterChoice != "" &&
                   filterChoice === event.categories[0].id
