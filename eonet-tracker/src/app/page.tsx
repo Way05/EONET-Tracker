@@ -12,7 +12,7 @@ const LazyMap = dynamic(() => import("@/src/app/components/map"), {
   loading: () => <p>Loading...</p>,
 });
 
-const TEMP_DATA = {
+const TEMP_DATA: allEventsFormat = {
   title: "EONET Events",
   description: "Natural events from EONET.",
   link: "https://eonet.gsfc.nasa.gov/api/v3/events",
