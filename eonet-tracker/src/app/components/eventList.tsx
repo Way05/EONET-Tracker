@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -11,10 +11,8 @@ import {
 } from "@/src/app/components/ui/select";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/src/app/components/ui/card";
@@ -83,7 +81,6 @@ export default function EventList(props: data) {
             : null}
           {eventsShowing === 0 ? <div>No events found.</div> : null}
         </CardContent>
-        {/* <CardFooter><p>Card Footer</p></CardFooter> */}
       </Card>
     </div>
   );
