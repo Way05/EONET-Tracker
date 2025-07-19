@@ -43,7 +43,6 @@ interface eventFormat {
   description: string;
   link: string;
   closed: boolean;
-  //LAZY I WILL ADD THEM IF I NEED THEM
   categories: categoriesFormat[];
   sources: sourcesFormat[];
   geometry: geometryFormat[];
@@ -85,7 +84,7 @@ export default function EventList() {
     }
 
     getData();
-  }, []);
+  });
   return (
     <div>
       <Card>
