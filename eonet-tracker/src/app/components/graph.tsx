@@ -14,7 +14,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/src/app/components/ui/chart";
-import { eventFormat } from "./dataInterfaces";
+import { propsListEvents } from "./dataInterfaces";
 import { useEffect, useState } from "react";
 
 const chartConfig = {
@@ -23,10 +23,6 @@ const chartConfig = {
     color: "white",
   },
 } satisfies ChartConfig;
-
-type data = {
-  events: eventFormat[] | undefined;
-};
 
 type chartEntry = {
   date: string;
@@ -37,7 +33,7 @@ interface tempObjData {
   [key: string]: number;
 }
 
-export default function Graph(props: data) {
+export default function Graph(props: propsListEvents) {
   const [chartData, setChartData] = useState<chartEntry[]>([]);
   const [totalEvents, setTotalEvents] = useState<number>(0);
 

@@ -10,8 +10,9 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
+import { propsListEvents } from "./dataInterfaces";
 
-export default function Map() {
+export default function Map(props: propsListEvents) {
   return (
     <div>
       <Card className="aspect-square">

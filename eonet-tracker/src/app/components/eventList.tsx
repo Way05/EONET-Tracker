@@ -16,13 +16,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/src/app/components/ui/card";
-import { eventFormat } from "./dataInterfaces";
+import { eventFormat, propsListEvents } from "./dataInterfaces";
 
-type data = {
-  events: eventFormat[] | undefined;
-};
-
-export default function EventList(props: data) {
+export default function EventList(props: propsListEvents) {
   let eventsShowing: number = 0;
   const [filterChoice, setFilterChoice] = useState<string>("all");
   function changeFilter(choice: string) {

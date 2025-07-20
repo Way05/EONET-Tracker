@@ -33,3 +33,7 @@ export interface allEventsFormat {
   link: string;
   events: eventFormat[];
 }
+
+export type propsListEvents = {
+  events: eventFormat[] | undefined;
+};
