@@ -254,7 +254,7 @@ export default function Home() {
     <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20">
       <main className="row-start-2 flex flex-wrap items-center gap-[32px] sm:items-start">
         <EventList events={currData?.events}></EventList>
-        <LazyMap></LazyMap>
+        <LazyMap events={currData?.events}></LazyMap>
         {/* <Map></Map> */}
         <Graph events={currData?.events}></Graph>
       </main>

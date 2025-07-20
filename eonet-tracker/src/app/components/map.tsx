@@ -6,11 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/src/app/components/ui/card";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
-import { propsListEvents } from "./dataInterfaces";
+import { eventFormat, propsListEvents } from "./dataInterfaces";
 
 export default function Map(props: propsListEvents) {
   return (
@@ -32,6 +32,17 @@ export default function Map(props: propsListEvents) {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
+              {props.events
+                ? props.events.map((event: eventFormat) => (
+                    <Marker
+                      key={event.id}
+                      position={[
+                        event.geometry[0].coordinates[1],
+                        event.geometry[0].coordinates[0],
+                      ]}
+                    ></Marker>
+                  ))
+                : null}
             </MapContainer>
           </div>
         </CardContent>
