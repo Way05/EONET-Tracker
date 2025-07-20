@@ -23,8 +23,8 @@ export default function Map(props: propsListEvents) {
         <CardContent>
           <div id="map" className="aspect-square">
             <MapContainer
-              center={[51.505, -0.09]}
-              zoom={13}
+              center={[40, -98]}
+              zoom={3}
               scrollWheelZoom={false}
               className="h-100 w-100 rounded-lg"
             >
