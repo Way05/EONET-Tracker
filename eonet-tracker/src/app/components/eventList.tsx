@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -17,6 +17,7 @@ import {
   CardTitle,
 } from "@/src/app/components/ui/card";
 import { eventFormat, propsListEvents } from "./dataInterfaces";
+import Event from "./event";
 
 export default function EventList(props: propsListEvents) {
   let eventsShowing: number = 0;
@@ -25,6 +26,11 @@ export default function EventList(props: propsListEvents) {
     eventsShowing = 0;
     setFilterChoice(choice);
   }
+
+  const [selected, setSelected] = useState<string>("");
+  useEffect(() => {
+    console.log(selected);
+  }, [selected]);
 
   return (
     <div>
@@ -68,10 +74,26 @@ export default function EventList(props: propsListEvents) {
                   filterChoice === event.categories[0].id
                 ) {
                   eventsShowing++;
-                  return <div key={event.id}>{event.title}</div>;
+                  return (
+                    <Event
+                      key={event.id}
+                      id={event.id}
+                      title={event.title}
+                      currentSelection={selected}
+                      sendID={setSelected}
+                    ></Event>
+                  );
                 } else if (filterChoice === "all") {
                   eventsShowing++;
-                  return <div key={event.id}>{event.title}</div>;
+                  return (
+                    <Event
+                      key={event.id}
+                      id={event.id}
+                      title={event.title}
+                      currentSelection={selected}
+                      sendID={setSelected}
+                    ></Event>
+                  );
                 }
               })
             : null}
