@@ -21,7 +21,7 @@ export default function Event(props: eventProp) {
   }, [props.currentSelection]);
   return (
     <div
-      className={`rounded-sm p-1 transition-colors duration-150 ${isSelected ? "bg-white text-black" : "bg-black text-white"}`}
+      className={`rounded-sm p-1 transition-colors duration-150 ${isSelected ? "bg-white text-black" : "bg-black text-white hover:bg-neutral-800"}`}
       onClick={sendID}
     >
       {props.title}
