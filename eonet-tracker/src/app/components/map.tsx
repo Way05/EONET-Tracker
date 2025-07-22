@@ -6,13 +6,42 @@ import {
   CardHeader,
   CardTitle,
 } from "@/src/app/components/ui/card";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Polygon,
+  Circle,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
-import { eventFormat, propsListEvents } from "./dataInterfaces";
+import { eventFormat, geometryFormat, propsListEvents } from "./dataInterfaces";
+import { JSX, useState } from "react";
 
 export default function Map(props: propsListEvents) {
+  const [selected, setSelected] = useState<string>();
+  function drawVectorLayer(geoData: geometryFormat[]): JSX.Element {
+    const colorRed = { color: "red" };
+    if (geoData.length > 1) {
+      const polygon: [number, number][] = geoData.map(
+        (coordPair: geometryFormat) => [
+          coordPair.coordinates[1],
+          coordPair.coordinates[0],
+        ],
+      );
+      return <Polygon pathOptions={colorRed} positions={polygon}></Polygon>;
+    } else {
+      return (
+        <Circle
+          center={[geoData[0].coordinates[1], geoData[0].coordinates[0]]}
+          pathOptions={colorRed}
+          radius={10000}
+        ></Circle>
+      );
+    }
+  }
   return (
     <div>
       <Card className="aspect-square">
@@ -40,8 +69,15 @@ export default function Map(props: propsListEvents) {
                         event.geometry[0].coordinates[1],
                         event.geometry[0].coordinates[0],
                       ]}
-                    ></Marker>
+                    >
+                      <Popup>{event.title}</Popup>
+                    </Marker>
                   ))
+                : null}
+              {props.events
+                ? props.events?.map((event: eventFormat) =>
+                    drawVectorLayer(event.geometry),
+                  )
                 : null}
             </MapContainer>
           </div>
