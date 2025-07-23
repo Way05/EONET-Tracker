@@ -8,5 +8,3 @@ Plans:
 - event search
 - click event to autopan map to location
   - use geolocation to draw border bounds on map
-- reset zoom action button
-- live coordinate display
