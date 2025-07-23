@@ -21,7 +21,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
 import { eventFormat, geometryFormat, propsListEvents } from "./dataInterfaces";
-import { JSX, useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Crosshair } from "lucide-react";
 
 const center: [number, number] = [40, -98];
@@ -34,7 +34,7 @@ function DisplayPosition({ map }: Map) {
     setPosition(map.getCenter());
   }, [map]);
 
-  useEffect(() => {
+  useMemo(() => {
     map.on("move", onMove);
     return () => {
       map.off("move", onMove);
@@ -53,30 +53,37 @@ function DisplayPosition({ map }: Map) {
 
 export default function Map(props: propsListEvents) {
   const [map, setMap] = useState<Map | undefined>(null);
-  const [selected, setSelected] = useState<string>();
-  function drawVectorLayer(id: string, geoData: geometryFormat[]): JSX.Element {
-    const colorRed = { color: "red" };
-    if (geoData.length > 1) {
-      const polygon: [number, number][] = geoData.map(
-        (coordPair: geometryFormat) => [
-          coordPair.coordinates[1],
-          coordPair.coordinates[0],
-        ],
-      );
-      return (
-        <Polygon key={id} pathOptions={colorRed} positions={polygon}></Polygon>
-      );
-    } else {
-      return (
-        <Circle
-          key={id}
-          center={[geoData[0].coordinates[1], geoData[0].coordinates[0]]}
-          pathOptions={colorRed}
-          radius={10000}
-        ></Circle>
-      );
-    }
-  }
+  // const [selected, setSelected] = useState<string>();
+  // function zoomToSelected(id: string) {
+  //   map.setView();
+  // }
+  // function drawVectorLayer(id: string, geoData: geometryFormat[]): JSX.Element {
+  //   const colorRed = { color: "red" };
+  //   if (geoData.length > 1) {
+  //     const polygon: [number, number][] = geoData.map(
+  //       (coordPair: geometryFormat) => [
+  //         coordPair.coordinates[1],
+  //         coordPair.coordinates[0],
+  //       ],
+  //     );
+  //     return (
+  //       <Polygon key={id} pathOptions={colorRed} positions={polygon}></Polygon>
+  //     );
+  //   } else {
+  //     return (
+  //       <Circle
+  //         key={id}
+  //         center={[geoData[0].coordinates[1], geoData[0].coordinates[0]]}
+  //         pathOptions={colorRed}
+  //         radius={10000}
+  //       ></Circle>
+  //     );
+  //   }
+  // }
+  // useEffect(() => {
+  //   zoomToSelected();
+  //   drawVectorLayer();
+  // }, [selected]);
 
   const onClick = useCallback(() => {
     map.setView(center, zoom);

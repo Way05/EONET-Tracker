@@ -15,7 +15,7 @@ import {
   ChartTooltipContent,
 } from "@/src/app/components/ui/chart";
 import { propsListEvents } from "./dataInterfaces";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 
 const chartConfig = {
   events: {
@@ -37,7 +37,7 @@ export default function Graph(props: propsListEvents) {
   const [chartData, setChartData] = useState<chartEntry[]>([]);
   const [totalEvents, setTotalEvents] = useState<number>(0);
 
-  useEffect(() => {
+  useMemo(() => {
     if (props.events) {
       setTotalEvents(props.events?.length);
       const tempChartData: tempObjData = {};
@@ -59,6 +59,7 @@ export default function Graph(props: propsListEvents) {
       // console.log(chartData);
     }
   }, [props.events]);
+
   return (
     <div>
       <Card>

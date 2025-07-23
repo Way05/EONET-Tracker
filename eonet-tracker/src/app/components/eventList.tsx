@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -28,9 +28,6 @@ export default function EventList(props: propsListEvents) {
   }
 
   const [selected, setSelected] = useState<string>("");
-  useEffect(() => {
-    console.log(selected);
-  }, [selected]);
 
   return (
     <div>
