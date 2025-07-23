@@ -35,7 +35,7 @@ export default function EventList(props: propsListEvents) {
   return (
     <div>
       <Card>
-        <CardHeader>
+        <CardHeader className="border-b">
           <CardTitle>Event List</CardTitle>
           <CardDescription>Search or Filter</CardDescription>
           <Select onValueChange={changeFilter}>

@@ -113,7 +113,7 @@ export default function Graph(props: propsListEvents) {
             </BarChart>
           </ChartContainer>
         </CardContent>
-        <CardFooter className="flex-col items-start gap-2 text-sm">
+        <CardFooter className="flex-col items-start gap-2 border-t text-sm">
           <div className="flex gap-2 font-medium leading-none">
             No trend data.
           </div>
