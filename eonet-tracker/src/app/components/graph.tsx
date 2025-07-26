@@ -66,7 +66,7 @@ export default function Graph(props: propsListEvents) {
         <CardHeader className="flex flex-col items-stretch border-b p-0 sm:flex-row">
           <div className="flex flex-1 flex-col justify-center gap-1 px-6">
             <CardTitle>Event Frequency</CardTitle>
-            <CardDescription>Ongoing Events per Day</CardDescription>
+            <CardDescription>New Events Per Day</CardDescription>
           </div>
           <div className="flex">
             <div className="border-- relative z-30 flex flex-1 flex-col justify-center gap-1 px-6 text-left even:border-l sm:border-l sm:border-t-0 sm:px-8">
