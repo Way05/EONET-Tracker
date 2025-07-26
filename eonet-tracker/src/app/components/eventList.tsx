@@ -43,11 +43,11 @@ export default function EventList(props: propsListEvents) {
 
   return (
     <div>
-      <Card>
+      <Card className="gap-0">
         <CardHeader>
           <CardTitle>Event List</CardTitle>
           <CardDescription>Search or Filter</CardDescription>
-          <Select onValueChange={changeFilter}>
+          {/* <Select onValueChange={changeFilter}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter Category" />
             </SelectTrigger>
@@ -72,7 +72,7 @@ export default function EventList(props: propsListEvents) {
                 <SelectItem value="wildfires">Wildfires</SelectItem>
               </SelectGroup>
             </SelectContent>
-          </Select>
+          </Select> */}
         </CardHeader>
         {/* <CardAction>Card Action</CardAction> */}
         <CardContent className="min-w-[228px]">
