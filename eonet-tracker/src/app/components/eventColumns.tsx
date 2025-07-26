@@ -14,10 +14,10 @@ export const columns: ColumnDef<Event>[] = [
     accessorKey: "name",
     header: "Name",
   },
-  //   {
-  //     accessorKey: "category",
-  //     header: "Category",
-  //   },
+  {
+    accessorKey: "category",
+    header: "Category",
+  },
   {
     accessorKey: "date",
     header: "Date",
