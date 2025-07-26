@@ -17,7 +17,9 @@ import {
   CardTitle,
 } from "@/src/app/components/ui/card";
 import { eventFormat, propsListEvents } from "./dataInterfaces";
-import Event from "./event";
+// import Event from "./event";
+import { EventDataTable } from "./eventDataTable";
+import { columns, Event } from "./eventColumns";
 
 export default function EventList(props: propsListEvents) {
   let eventsShowing: number = 0;
@@ -27,12 +29,22 @@ export default function EventList(props: propsListEvents) {
     setFilterChoice(choice);
   }
 
+  function formatData(events: eventFormat[]): Event[] {
+    return events.map((event: eventFormat) => ({
+      id: event.id,
+      category: event.categories[0].id,
+      name: event.title,
+      date: event.geometry[0].date,
+    }));
+  }
+  const formattedData: Event[] = formatData(props.events!);
+
   const [selected, setSelected] = useState<string>("");
 
   return (
     <div>
       <Card>
-        <CardHeader className="border-b">
+        <CardHeader>
           <CardTitle>Event List</CardTitle>
           <CardDescription>Search or Filter</CardDescription>
           <Select onValueChange={changeFilter}>
@@ -64,7 +76,11 @@ export default function EventList(props: propsListEvents) {
         </CardHeader>
         {/* <CardAction>Card Action</CardAction> */}
         <CardContent className="min-w-[228px]">
-          {props.events
+          <EventDataTable
+            data={formattedData}
+            columns={columns}
+          ></EventDataTable>
+          {/* {props.events
             ? props.events.map((event: eventFormat) => {
                 if (
                   filterChoice != "" &&
@@ -94,7 +110,7 @@ export default function EventList(props: propsListEvents) {
                 }
               })
             : null}
-          {eventsShowing === 0 ? <div>No events found.</div> : null}
+          {eventsShowing === 0 ? <div>No events found.</div> : null} */}
         </CardContent>
       </Card>
     </div>
