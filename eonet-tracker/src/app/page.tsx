@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 
 const LazyMap = dynamic(() => import("@/src/app/components/map"), {
   ssr: false,
-  loading: () => <p>Loadng...</p>,
+  loading: () => <p>Loading...</p>,
 });
 
 const TEMP_DATA: allEventsFormat = {
@@ -255,7 +255,7 @@ export default function Home() {
       <main className="row-start-2 flex flex-wrap items-center gap-[32px] sm:items-start">
         <EventList events={currData?.events}></EventList>
         <LazyMap events={currData?.events}></LazyMap>
-        {/* <Map></Map> */}
+        {/* <Map events={currData?.events}></Map> */}
         <Graph events={currData?.events}></Graph>
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-[24px]">
