@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import {
   Card,
   CardAction,
@@ -17,12 +17,14 @@ import {
   Polygon,
   Circle,
 } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
-import "leaflet-defaulticon-compatibility";
+// import "leaflet/dist/leaflet.css";
+// import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
+// import "leaflet-defaulticon-compatibility";
 import { eventFormat, geometryFormat, propsListEvents } from "./dataInterfaces";
 import { useCallback, useMemo, useState } from "react";
 import { Crosshair } from "lucide-react";
+import dynamic from "next/dynamic";
+import MapEmbed from "@/src/app/components/mapEmbed";
 
 const center: [number, number] = [40, -98];
 const zoom: number = 3;
@@ -88,39 +90,44 @@ export default function Map(props: propsListEvents) {
   const onClick = useCallback(() => {
     map.setView(center, zoom);
   }, [map]);
-  const displayMap = useMemo(
-    () => (
-      <MapContainer
-        center={center}
-        zoom={zoom}
-        scrollWheelZoom={false}
-        className="h-100 w-100 rounded-lg"
-        ref={setMap}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {props.events
-          ? props.events.map((event: eventFormat) => (
-              <Marker
-                key={event.id}
-                position={[
-                  event.geometry[0].coordinates[1],
-                  event.geometry[0].coordinates[0],
-                ]}
-              >
-                <Popup>{event.title}</Popup>
-              </Marker>
-            ))
-          : null}
-      </MapContainer>
-    ),
-    [],
-  );
+  // const displayMap = useMemo(
+  //   () => (
+  //     <MapContainer
+  //       center={center}
+  //       zoom={zoom}
+  //       scrollWheelZoom={false}
+  //       className="h-full w-full rounded-lg"
+  //       ref={setMap}
+  //     >
+  //       <TileLayer
+  //         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  //         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  //       />
+  //       {props.events
+  //         ? props.events.map((event: eventFormat) => (
+  //             <Marker
+  //               key={event.id}
+  //               position={[
+  //                 event.geometry[0].coordinates[1],
+  //                 event.geometry[0].coordinates[0],
+  //               ]}
+  //             >
+  //               <Popup>{event.title}</Popup>
+  //             </Marker>
+  //           ))
+  //         : null}
+  //     </MapContainer>
+  //   ),
+  //   [props.events],
+  // );
+
+  const LazyMap = dynamic(() => import("@/src/app/components/mapEmbed"), {
+    ssr: false,
+    loading: () => <p>Loading...</p>,
+  });
 
   return (
-    <div>
+    <div className="min-w-130">
       <Card className="aspect-square">
         <CardHeader>
           <CardTitle>Event Map</CardTitle>
@@ -133,7 +140,9 @@ export default function Map(props: propsListEvents) {
         </CardHeader>
         <CardContent>
           <div id="map" className="aspect-square">
-            {displayMap}
+            {/* {displayMap} */}
+            <LazyMap events={props.events} />
+            {/* <MapEmbed events={props.events} setMap={setMap}></MapEmbed> */}
           </div>
         </CardContent>
         <CardFooter>

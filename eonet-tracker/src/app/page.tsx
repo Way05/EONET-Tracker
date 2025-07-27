@@ -7,10 +7,10 @@ import { useEffect, useState } from "react";
 import { allEventsFormat } from "./components/dataInterfaces";
 import dynamic from "next/dynamic";
 
-const LazyMap = dynamic(() => import("@/src/app/components/map"), {
-  ssr: false,
-  loading: () => <p>Loading...</p>,
-});
+// const LazyMap = dynamic(() => import("@/src/app/components/map"), {
+//   ssr: false,
+//   loading: () => <p>Loading...</p>,
+// });
 
 const TEMP_DATA: allEventsFormat = {
   title: "EONET Events",
@@ -229,7 +229,7 @@ const TEMP_DATA: allEventsFormat = {
 };
 
 export default function Home() {
-  const eventLimit: number = 20;
+  const eventLimit: number = 1000;
   const [currData, setData] = useState<allEventsFormat>(TEMP_DATA);
   const params: URLSearchParams = new URLSearchParams();
   params.append("status", "open");
@@ -254,8 +254,8 @@ export default function Home() {
     <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20">
       <main className="row-start-2 flex flex-wrap items-center gap-[32px] sm:items-start">
         <EventList events={currData?.events}></EventList>
-        <LazyMap events={currData?.events}></LazyMap>
-        {/* <Map></Map> */}
+        {/* <LazyMap events={currData?.events}></LazyMap> */}
+        <Map events={currData?.events}></Map>
         <Graph events={currData?.events}></Graph>
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-[24px]">

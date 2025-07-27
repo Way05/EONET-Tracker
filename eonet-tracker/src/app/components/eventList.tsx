@@ -22,7 +22,7 @@ export default function EventList(props: propsListEvents) {
   const formattedData: Event[] = formatData(props.events!);
 
   return (
-    <div className="w-150">
+    <div className="min-w-150">
       <Card className="gap-0">
         <CardHeader>
           <CardTitle>Event List</CardTitle>
