@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EONET Tracker",
+  title: "EONET Dashboard",
   description: "Disaster Tracker",
 };
 
