@@ -114,7 +114,7 @@ export default function Map(props: propsListEvents) {
         center={center}
         zoom={zoom}
         scrollWheelZoom={false}
-        className="h-100 w-100 rounded-lg"
+        className="aspect-square h-fit rounded-lg"
         ref={setMap}
       >
         <TileLayer
@@ -129,7 +129,7 @@ export default function Map(props: propsListEvents) {
 
   return (
     <div>
-      <Card className="aspect-square">
+      <Card className="w-140 aspect-square">
         <CardHeader>
           <CardTitle>Event Map</CardTitle>
           <CardDescription>View the Map</CardDescription>
