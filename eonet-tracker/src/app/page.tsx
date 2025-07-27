@@ -253,13 +253,13 @@ export default async function Home() {
   //   // getData();
   // }, []);
   return (
-    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20">
+    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-x-16 p-10 font-sans">
       <main className="row-start-2 flex flex-wrap items-center gap-[32px] sm:items-start">
         <EventList events={data?.events} />
         <MapWrapper events={data?.events} />
         {/* <LazyMap events={currData?.events}></LazyMap> */}
         {/* <Map events={currData?.events}></Map> */}
-        <Graph events={data?.events} />
+        {/* <Graph events={data?.events} /> */}
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-[24px]">
         <a
