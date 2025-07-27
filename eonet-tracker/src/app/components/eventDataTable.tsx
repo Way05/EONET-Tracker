@@ -3,6 +3,7 @@
 import {
   ColumnDef,
   ColumnFiltersState,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -27,7 +28,7 @@ import {
   SelectValue,
 } from "@/src/app/components/ui/select";
 import { Button } from "./ui/button";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Input } from "./ui/input";
 
 interface EventDataTableProps<TData, TValue> {
@@ -45,6 +46,8 @@ export function EventDataTable<TData, TValue>({
     table.getColumn("category")?.setFilterValue(filterValue);
   }
 
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+
   const table = useReactTable({
     data,
     columns,
@@ -52,17 +55,21 @@ export function EventDataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
     state: {
       columnFilters,
+      columnVisibility,
     },
   });
+
+  useMemo(() => table.getColumn("category")?.toggleVisibility(false), []);
 
   return (
     <div>
       <div>
-        <div className="flex items-center py-4">
+        <div className="flex items-center justify-between py-4">
           <Select onValueChange={changeFilter}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-1/3">
               <SelectValue placeholder="Filter Category" />
             </SelectTrigger>
             <SelectContent>
@@ -93,7 +100,7 @@ export function EventDataTable<TData, TValue>({
             onChange={(event) =>
               table.getColumn("name")?.setFilterValue(event.target.value)
             }
-            className="max-w-sm"
+            className="w-1/2"
           />
         </div>
       </div>
@@ -151,9 +158,8 @@ export function EventDataTable<TData, TValue>({
           <div className="text-muted-foreground text-sm">
             Page {table.getState().pagination.pageIndex + 1} of{" "}
             {table.getPageCount()}
-            {" - "}
-            Showing {table.getState().pagination.pageSize} of{" "}
-            {table.getFilteredRowModel().rows.length}
+            {/* {" - "}
+            Showing {table.getFilteredRowModel().rows.length} */}
           </div>
           <div>
             <Button
