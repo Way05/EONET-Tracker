@@ -21,7 +21,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
 import { eventFormat, geometryFormat, propsListEvents } from "./dataInterfaces";
-import { useCallback, useMemo, useState } from "react";
+import { Suspense, useCallback, useMemo, useState } from "react";
 import { Crosshair } from "lucide-react";
 
 const center: [number, number] = [40, -98];
@@ -85,6 +85,26 @@ export default function Map(props: propsListEvents) {
   //   drawVectorLayer();
   // }, [selected]);
 
+  const loadMarkers = useMemo(() => {
+    return (
+      <div>
+        {props.events
+          ? props.events.map((event: eventFormat) => (
+              <Marker
+                key={event.id}
+                position={[
+                  event.geometry[0].coordinates[1],
+                  event.geometry[0].coordinates[0],
+                ]}
+              >
+                <Popup>{event.title}</Popup>
+              </Marker>
+            ))
+          : null}
+      </div>
+    );
+  }, [props.events]);
+
   const onClick = useCallback(() => {
     map.setView(center, zoom);
   }, [map]);
@@ -101,22 +121,10 @@ export default function Map(props: propsListEvents) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {props.events
-          ? props.events.map((event: eventFormat) => (
-              <Marker
-                key={event.id}
-                position={[
-                  event.geometry[0].coordinates[1],
-                  event.geometry[0].coordinates[0],
-                ]}
-              >
-                <Popup>{event.title}</Popup>
-              </Marker>
-            ))
-          : null}
+        {loadMarkers}
       </MapContainer>
     ),
-    [],
+    [props.events],
   );
 
   return (

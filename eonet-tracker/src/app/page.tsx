@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 
 const LazyMap = dynamic(() => import("@/src/app/components/map"), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
+  loading: () => <p>Loadng...</p>,
 });
 
 const TEMP_DATA: allEventsFormat = {
