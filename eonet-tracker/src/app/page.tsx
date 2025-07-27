@@ -1,8 +1,7 @@
-"use client";
+// "use client";
 import Image from "next/image";
 import EventList from "./components/eventList";
 import Graph from "./components/graph";
-import { useEffect, useState } from "react";
 import { allEventsFormat } from "./components/dataInterfaces";
 import MapWrapper from "./components/mapWrapper";
 
@@ -222,36 +221,45 @@ const TEMP_DATA: allEventsFormat = {
   ],
 };
 
-export default function Home() {
-  const eventLimit: number = 20;
-  const [currData, setData] = useState<allEventsFormat>(TEMP_DATA);
+export default async function Home() {
+  // const [currData, setData] = useState<allEventsFormat>(TEMP_DATA);
+  const eventLimit: number = 500;
   const params: URLSearchParams = new URLSearchParams();
   params.append("status", "open");
   params.append("limit", eventLimit.toString());
-  useEffect(() => {
-    async function getData(): Promise<void> {
-      const res: Response = await fetch(
-        `https://eonet.gsfc.nasa.gov/api/v3/events?${params}`,
-        {
-          next: { revalidate: 3600 },
-        },
-      );
-      const json: allEventsFormat = await res.json();
-      setData(json);
+  // const res = await fetch(
+  //   `https://eonet.gsfc.nasa.gov/api/v3/events?${params}`,
+  //   {
+  //     next: { revalidate: 3600 },
+  //   },
+  // );
+  const data = TEMP_DATA;
+  // const data: allEventsFormat = await res.json();
+  console.log(data);
+  // useEffect(() => {
+  //   async function getData(): Promise<void> {
+  //     const res: Response = await fetch(
+  //       `https://eonet.gsfc.nasa.gov/api/v3/events?${params}`,
+  //       {
+  //         next: { revalidatadate: 3600 },
+  //       },
+  //     );
+  //     const json: allEventsFormat = await res.json();
+  //     setData(json);
 
-      console.log(json);
-    }
+  //     console.log(json);
+  //   }
 
-    // getData();
-  }, []);
+  //   // getData();
+  // }, []);
   return (
     <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20">
       <main className="row-start-2 flex flex-wrap items-center gap-[32px] sm:items-start">
-        <EventList events={currData?.events} />
-        <MapWrapper events={currData?.events} />
+        <EventList events={data?.events} />
+        <MapWrapper events={data?.events} />
         {/* <LazyMap events={currData?.events}></LazyMap> */}
         {/* <Map events={currData?.events}></Map> */}
-        <Graph events={currData?.events} />
+        <Graph events={data?.events} />
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-[24px]">
         <a
