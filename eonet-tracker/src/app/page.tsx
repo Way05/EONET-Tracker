@@ -222,7 +222,6 @@ const TEMP_DATA: allEventsFormat = {
 };
 
 export default async function Home() {
-  // const [currData, setData] = useState<allEventsFormat>(TEMP_DATA);
   const eventLimit: number = 500;
   const params: URLSearchParams = new URLSearchParams();
   params.append("status", "open");
@@ -236,29 +235,12 @@ export default async function Home() {
   const data = TEMP_DATA;
   // const data: allEventsFormat = await res.json();
   console.log(data);
-  // useEffect(() => {
-  //   async function getData(): Promise<void> {
-  //     const res: Response = await fetch(
-  //       `https://eonet.gsfc.nasa.gov/api/v3/events?${params}`,
-  //       {
-  //         next: { revalidatadate: 3600 },
-  //       },
-  //     );
-  //     const json: allEventsFormat = await res.json();
-  //     setData(json);
 
-  //     console.log(json);
-  //   }
-
-  //   // getData();
-  // }, []);
   return (
     <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-x-16 p-10 font-sans">
       <main className="row-start-2 flex flex-wrap items-center gap-[32px] sm:items-start">
         <EventList events={data?.events} />
         <MapWrapper events={data?.events} />
-        {/* <LazyMap events={currData?.events}></LazyMap> */}
-        {/* <Map events={currData?.events}></Map> */}
         {/* <Graph events={data?.events} /> */}
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-[24px]">
