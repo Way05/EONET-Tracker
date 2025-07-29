@@ -19,9 +19,9 @@ export interface geometryFormat {
 export interface eventFormat {
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   link: string;
-  closed: boolean;
+  closed: boolean | null;
   categories: categoriesFormat[];
   sources: sourcesFormat[];
   geometry: geometryFormat[];
