@@ -226,15 +226,25 @@ export default async function Home() {
   const params: URLSearchParams = new URLSearchParams();
   params.append("status", "open");
   params.append("limit", eventLimit.toString());
-  // const res = await fetch(
-  //   `https://eonet.gsfc.nasa.gov/api/v3/events?${params}`,
-  //   {
-  //     next: { revalidate: 3600 },
-  //   },
-  // );
-  const data = TEMP_DATA;
-  // const data: allEventsFormat = await res.json();
-  console.log(data);
+  const res = await fetch(
+    `https://eonet.gsfc.nasa.gov/api/v3/events?${params}`,
+    {
+      headers: {
+        "Cache-Control": "max-age=3600",
+      },
+      next: { revalidate: 3600 },
+    },
+  );
+  console.log(
+    `Hourly API calls remaining: ${res.headers.get("X-RateLimit-Remaining")}`,
+  );
+  console.log(
+    (await res.clone().arrayBuffer()).byteLength / 1000000,
+    "MB of data received",
+  );
+  let data: allEventsFormat = TEMP_DATA;
+  data = await res.json();
+  // console.log(data);
 
   return (
     <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-x-16 p-10 font-sans">
