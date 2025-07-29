@@ -20,26 +20,31 @@ import {
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
+import Leaflet from "leaflet";
 import { eventFormat, geometryFormat, propsListEvents } from "./dataInterfaces";
-import { Suspense, useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Crosshair } from "lucide-react";
+
+type positionProps = {
+  map: Leaflet.Map;
+};
 
 const center: [number, number] = [40, -98];
 const zoom: number = 3;
 
-function DisplayPosition({ map }: Map) {
-  const [position, setPosition] = useState(() => map.getCenter());
+function DisplayPosition(props: positionProps) {
+  const [position, setPosition] = useState(() => props.map.getCenter());
 
   const onMove = useCallback(() => {
-    setPosition(map.getCenter());
-  }, [map]);
+    setPosition(props.map.getCenter());
+  }, [props.map]);
 
   useMemo(() => {
-    map.on("move", onMove);
+    props.map.on("move", onMove);
     return () => {
-      map.off("move", onMove);
+      props.map.off("move", onMove);
     };
-  }, [map, onMove]);
+  }, [props.map, onMove]);
 
   return (
     <div>
@@ -52,7 +57,7 @@ function DisplayPosition({ map }: Map) {
 }
 
 export default function Map(props: propsListEvents) {
-  const [map, setMap] = useState<Map | undefined>(null);
+  const [map, setMap] = useState<Leaflet.Map | null>(null);
   // const [selected, setSelected] = useState<string>();
   // function zoomToSelected(id: string) {
   //   map.setView();
@@ -106,7 +111,7 @@ export default function Map(props: propsListEvents) {
   }, [props.events]);
 
   const onClick = useCallback(() => {
-    map.setView(center, zoom);
+    map!.setView(center, zoom);
   }, [map]);
   const displayMap = useMemo(
     () => (
@@ -124,7 +129,7 @@ export default function Map(props: propsListEvents) {
         {loadMarkers}
       </MapContainer>
     ),
-    [props.events],
+    [loadMarkers],
   );
 
   return (
